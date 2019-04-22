@@ -1,7 +1,17 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
+
   def index
-    @movies = Movie.all
+    condition = params[:mykey]
+
+    if condition == "1"
+      @movies = Movie.order(:title)
+    elsif condition == "2"
+      @movies = Movie.order(:release_date)
+    else
+      @movies = Movie.all
+    end
+
   end
 
   def show
@@ -44,4 +54,5 @@ class MoviesController < ApplicationController
     flash[:notice] = "#{@movie.title} was deleted!"
     redirect_to movies_path
   end
+
 end
